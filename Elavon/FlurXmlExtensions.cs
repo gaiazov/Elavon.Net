@@ -1,6 +1,9 @@
-﻿using System.Net.Http;
+﻿using System.IO;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
+using System.Xml.Serialization;
 using Flurl;
 using Flurl.Http;
 using Flurl.Http.Content;
@@ -9,7 +12,7 @@ namespace Elavon
 {
     public static class FlurlXmlExtensions
     {
-        // chain off an existing FlurlClient:
+
         public static async Task<HttpResponseMessage> PostXmlAsync(this FlurlClient fc, string xml)
         {
             try

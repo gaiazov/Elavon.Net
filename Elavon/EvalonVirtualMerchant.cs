@@ -19,32 +19,43 @@ namespace Elavon
 
         public async Task<CreditCardSaleResponse> ProcessCreditCardSale(CreditCardSaleRequest request)
         {
-            var settings = new XmlWriterSettings {OmitXmlDeclaration = true};
+            var xml = SerializeForElavon(request);
 
-            var serializer = new XmlSerializer(typeof(CreditCardSaleRequest));
+            var result = await _baseUrl
+                .AppendPathSegment("processxml.do")
+                .PostUrlEncodedAsync(new
+                {
+                    xmldata = xml
+                })
+                .ReceiveStream();
+
+            return DeserializeFromElavon<CreditCardSaleResponse>(result);
+        }
+
+        #region Serialize/Deserialize helper methods
+        private static string SerializeForElavon<T>(T obj)
+        {
+            var settings = new XmlWriterSettings { OmitXmlDeclaration = true };
+
+            var serializer = new XmlSerializer(typeof(T));
 
             var ns = new XmlSerializerNamespaces();
             ns.Add("", "");
 
             var sw = new StringWriter();
             var xmlWriter = XmlWriter.Create(sw, settings);
-            serializer.Serialize(xmlWriter, request, ns);
+            serializer.Serialize(xmlWriter, obj, ns);
             xmlWriter.Close();
 
-            var requestString = sw.ToString();
+            return sw.ToString();
+        }
 
-            var result = await _baseUrl
-                .AppendPathSegment("processxml.do")
-                .PostUrlEncodedAsync(new
-                {
-                    xmldata = requestString
-                })
-                .ReceiveStream();
-
-            var deserializer = new XmlSerializer(typeof (CreditCardSaleResponse));
-            var response = (CreditCardSaleResponse)deserializer.Deserialize(result);
-
+        private static T DeserializeFromElavon<T>(Stream stream)
+        {
+            var deserializer = new XmlSerializer(typeof(T));
+            var response = (T)deserializer.Deserialize(stream);
             return response;
         }
+        #endregion
     }
 }

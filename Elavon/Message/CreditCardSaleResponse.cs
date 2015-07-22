@@ -107,7 +107,7 @@ namespace Elavon.Message
         }
 
         [XmlElement("errorCode")]
-        public int? ErrorCode;
+        public string ErrorCode;
 
         [XmlElement("errorMessage")]
         public string ErrorMessage;
