@@ -5,7 +5,7 @@ VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Elavon", "Elavon\Elavon.csproj", "{454655DE-7D52-4ABA-B83E-5A399CEA5EB8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Elavon.Tests", "Evalon.Tests\Elavon.Tests.csproj", "{9CA50468-5AE7-4346-A3AC-8F66176C1B9C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Elavon.Tests", "Elavon.Tests\Elavon.Tests.csproj", "{9CA50468-5AE7-4346-A3AC-8F66176C1B9C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{E99D39A5-E11A-4696-8EC6-E71F8F5D375C}"
 	ProjectSection(SolutionItems) = preProject
